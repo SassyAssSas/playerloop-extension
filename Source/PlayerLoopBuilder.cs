@@ -46,7 +46,7 @@ namespace Violoncello.PlayerLoopExtensions {
          if (removeOnApplicationQuit) {
             Application.quitting += () => FromCurrent().RemoveFromRoot<TSystem>().SetPlayerLoop();
          }
-
+         
          return this;
       }
 
@@ -55,18 +55,18 @@ namespace Violoncello.PlayerLoopExtensions {
                           .AddSubSystem(system);
 
          if (removeOnApplicationQuit) {
-            Application.quitting += () => FromCurrent().RemoveFromSubsystem(typeof(TParent), system.type).SetPlayerLoop();
+            Application.quitting += () => FromCurrent().RemoveFromSubSystem(typeof(TParent), system.type).SetPlayerLoop();
          }
 
          return this;
       }
       
-      public PlayerLoopBuilder AddToSubsystem<TParent, TSystem>(PlayerLoopSystem.UpdateFunction updateDelegate, bool removeOnApplicationQuit = true) {
+      public PlayerLoopBuilder AddToSubSystem<TParent, TSystem>(PlayerLoopSystem.UpdateFunction updateDelegate, bool removeOnApplicationQuit = true) {
          _playerLoopSystem.FindSubSystem<TParent>()
                           .AddSubSystem<TSystem>(updateDelegate);
 
          if (removeOnApplicationQuit) {
-            Application.quitting += () => FromCurrent().RemoveFromSubsystem(typeof(TParent), typeof(TSystem)).SetPlayerLoop();
+            Application.quitting += () => FromCurrent().RemoveFromSubSystem(typeof(TParent), typeof(TSystem)).SetPlayerLoop();
          }
 
          return this;
@@ -84,7 +84,7 @@ namespace Violoncello.PlayerLoopExtensions {
          return this;
       }
 
-      public PlayerLoopBuilder RemoveFromSubsystem<TParent, TSystem>() {
+      public PlayerLoopBuilder RemoveFromSubSystem<TParent, TSystem>() {
          _playerLoopSystem.TryFindSubSystem<TParent>(out PlayerLoopSystem parent);
 
          parent.RemoveSubSystem<TSystem>();
@@ -94,7 +94,7 @@ namespace Violoncello.PlayerLoopExtensions {
          return this;
       }
 
-      public PlayerLoopBuilder RemoveFromSubsystem(Type parentSystemType, Type systemType) {
+      public PlayerLoopBuilder RemoveFromSubSystem(Type parentSystemType, Type systemType) {
          _playerLoopSystem.TryFindSubSystem(out PlayerLoopSystem parent, parentSystemType);
 
          parent.RemoveSubSystem(systemType);

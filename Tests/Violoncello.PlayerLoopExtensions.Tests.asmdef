@@ -1,9 +1,10 @@
 {
-    "name": "Violoncello.Routines.PlayerLoopExtensions",
-    "rootNamespace": "Violoncello.Routines.PlayerLoopExtensions",
+    "name": "Violoncello.PlayerLoopExtensions.Tests",
+    "rootNamespace": "Violoncello.PlayerLoopExtensions.Tests",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "Violoncello.PlayerLoopExtensions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

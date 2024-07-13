@@ -6,7 +6,6 @@ Provides a convinient way of editing Unity's PlayerLoop.
 ## Table of contents
 - [PlayerLoopBuilder](#playerloopbuilder)
 - [PlayerLoopSystem extension methods](#playerloopsystem-extension-methods)
-- [Tests](#tests)
 
 ## PlayerLoopBuilder
 To start working with the library use the `Violoncello.PlayerLoopExtensions` namespace.
@@ -45,6 +44,23 @@ PlayerLoopBuilder.FromCurrent()
                  .RemoveFromRoot(typeof(MySystem))
                  .RemoveFromSubSystem(typeof(Update), typeof(MySystem));
 ```
+When you finish working with the builder you can either call the `PlayerLoopBuilder.Build` method to get a result `PlayerLoopSystem`:
+```csharp
+var playerLoop = PlayerLoopBuilder.FromCurrent()
+                                  .AddToSubSystem<Update, MyUpdate>(MyUpdateCallback)
+                                  .AddToSubSystem<FixedUpdate, MyFixedUpdate>()
+                                  .Build();
+
+// Will set the result PlayerLoopSystem as unity's main PlayerLoop 
+PlayerLoop.SetPlayerLoop();
+```
+Or call `PlayerLoopBuilder.SetPlayerLoop()` which will set the result `PlayerLoopSystem` as unity's default PlayerLoop without you having to retrieve the result `PlayerLoopSystem` and doing it yourself: 
+```csharp
+var playerLoop = PlayerLoopBuilder.FromCurrent()
+                                  .AddToSubSystem<Update, MyUpdate>(MyUpdateCallback)
+                                  .AddToSubSystem<FixedUpdate, MyFixedUpdate>()
+                                  .SetPlayerLoop();
+```
 
 ## PlayerLoopSystem extension methods
 If you need to edit a `PlayerLoopSystem`, you might make a use of their new extension methods:
@@ -73,5 +89,3 @@ playerLoopSystem.RemoveSubSystem(typeof(MySystem));
 playerLoopSystem.ReplaceSubSystem<OtherSystem>(mySystem);
 playerLoopSystem.ReplaceSubSystem(Callback, typeof(OtherSystem));
 ```
-
-## Tests
