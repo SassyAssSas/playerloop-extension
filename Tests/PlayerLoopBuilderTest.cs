@@ -1,18 +1,17 @@
 using System.Linq;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.LowLevel;
 using UnityEngine.PlayerLoop;
 
 namespace Violoncello.PlayerLoopExtensions.Tests {
-   public class PlayerLoopBuilderTest {
+   internal class PlayerLoopBuilderTest {
       [Test]
       public void CreateFromNew() {
          var a = new PlayerLoopSystem();
          var b = PlayerLoopBuilder.FromNew()
                                   .Build();
 
-         Assert.IsTrue(PlayerLoopEquals(a, b));
+         Assert.IsTrue(a.PlayerLoopEquals(b));
       }
 
       [Test]
@@ -21,7 +20,7 @@ namespace Violoncello.PlayerLoopExtensions.Tests {
          var b = PlayerLoopBuilder.FromDefault()
                                   .Build();
 
-         Assert.IsTrue(PlayerLoopEquals(a, b));
+         Assert.IsTrue(a.PlayerLoopEquals(b));
       }
 
       [Test]
@@ -30,7 +29,7 @@ namespace Violoncello.PlayerLoopExtensions.Tests {
          var b = PlayerLoopBuilder.FromCurrent()
                                   .Build();
 
-         Assert.IsTrue(PlayerLoopEquals(a, b));
+         Assert.IsTrue(a.PlayerLoopEquals(b));
       }
 
       [Test]
@@ -99,25 +98,6 @@ namespace Violoncello.PlayerLoopExtensions.Tests {
          var updateSystem = playerLoopSystem.subSystemList.First(system => system.type == typeof(Update));
 
          Assert.IsFalse(updateSystem.subSystemList.Any(system => system.type == typeof(Update.DirectorUpdate)));
-      }
-
-
-      private bool PlayerLoopEquals(PlayerLoopSystem a, PlayerLoopSystem b) {
-         if (a.type != b.type) {
-            return false;
-         }
-
-         if (a.subSystemList?.Length != b.subSystemList?.Length) {
-            return false;
-         }
-
-         for (int i = 0; i < a.subSystemList?.Length; i++) {
-            if (!PlayerLoopEquals(a.subSystemList[i], b.subSystemList[i])) {
-               return false;
-            }
-         }
-
-         return true;
       }
 
       private struct MySystem {
