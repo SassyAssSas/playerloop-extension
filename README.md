@@ -1,11 +1,15 @@
 <!-- omit from toc -->
 # PlayerLoop Extension
-Provides a convinient way of editing Unity's PlayerLoop.
+Provides a convenient way of editing Unity's PlayerLoop.
 
 <!-- omit from toc -->
 ## Table of contents
+- [Installation](#installation)
 - [PlayerLoopBuilder](#playerloopbuilder)
 - [PlayerLoopSystem extension methods](#playerloopsystem-extension-methods)
+
+## Installation
+To start using the package, go to [releases page](https://github.com/SassyAssSas/playerloop-extension/releases) and get the release of your choice.
 
 ## PlayerLoopBuilder
 To start working with the library use the `Violoncello.PlayerLoopExtensions` namespace.
@@ -63,7 +67,7 @@ var playerLoop = PlayerLoopBuilder.FromCurrent()
 ```
 
 ## PlayerLoopSystem extension methods
-If you need to edit a `PlayerLoopSystem`, you might make a use of their new extension methods:
+If you need to edit a `PlayerLoopSystem`, you might make a use of it's new extension methods:
 ```csharp
 // Searches for a subSystem with the passed type and returns it.
 // Throws an exception if doesn't find the subSystem
