@@ -168,5 +168,23 @@ namespace Violoncello.PlayerLoopExtensions {
             }
          }
       }
+
+      public static bool PlayerLoopEquals(this PlayerLoopSystem a, PlayerLoopSystem b) {
+         if (a.type != b.type) {
+            return false;
+         }
+
+         if (a.subSystemList?.Length != b.subSystemList?.Length) {
+            return false;
+         }
+
+         for (int i = 0; i < a.subSystemList?.Length; i++) {
+            if (!PlayerLoopEquals(a.subSystemList[i], b.subSystemList[i])) {
+               return false;
+            }
+         }
+
+         return true;
+      }
    }
 }
