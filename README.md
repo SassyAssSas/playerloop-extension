@@ -7,6 +7,7 @@ Provides a convenient way of editing Unity's PlayerLoop.
 - [Installation](#installation)
 - [PlayerLoopBuilder](#playerloopbuilder)
 - [PlayerLoopSystem extension methods](#playerloopsystem-extension-methods)
+- [Editor mode nuanses](#editor-mode-nuanses)
 
 ## Installation
 To start using the package, go to [releases page](https://github.com/SassyAssSas/playerloop-extension/releases) and get the release of your choice.
@@ -31,20 +32,12 @@ PlayerLoopBuilder.FromCurrent();
 // All these methods return the instance of PlayerLoopBuilder
 // So you can use many of them in a row
 PlayerLoopBuilder.FromCurrent()
-                 // Add methods requre an instance of PlayerLoopSystem
                  .AddToRoot(mySystem)
                  .AddToSubSystem<Update>(mySystem)
-
-                 // You might pass a type and a callback method if you don't want
-                 // To create an instance of PlayerLoopSystem yourself
                  .AddToRoot<MySystem>(Callback) 
                  .AddToSubSystem<Update, MySystem>(Callback)
-
-                 // Remove systems using generic types 
                  .RemoveFromRoot<MySystem>()
                  .RemoveFromSubSystem<Update, MySystem>()
-
-                 // Remove systems using Type variable
                  .RemoveFromRoot(typeof(MySystem))
                  .RemoveFromSubSystem(typeof(Update), typeof(MySystem));
 ```
@@ -92,4 +85,13 @@ playerLoopSystem.RemoveSubSystem(typeof(MySystem));
 // Searches for a subSystem with the passed type and replaces it
 playerLoopSystem.ReplaceSubSystem<OtherSystem>(mySystem);
 playerLoopSystem.ReplaceSubSystem(Callback, typeof(OtherSystem));
+```
+
+## Editor mode nuanses
+By default all the added systems keep working even if you exit play mode. `PlayerLoopBuilder` saves all the systems you add and removes them on play mode exit. If you want to disable this behaviour, while adding a new system pass `false` as a second argument:
+```csharp
+// This subsystem won't be automatically removed
+PlayerLoopBuilder.FromCurrent()
+                 .AddToSubSystem<Update>(mySystem, false)
+                 .SetPlayerLoop();
 ```
