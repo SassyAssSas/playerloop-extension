@@ -29,8 +29,8 @@ PlayerLoopBuilder.FromCurrent();
 
 `PlayerLoopBuilder` object is used to add and remove systems in the PlayerLoop using methods shown on the example below:
 ```csharp
-// All these methods return the instance of PlayerLoopBuilder
-// So you can use many of them in a row
+// All the creation methods return the instance of PlayerLoopBuilder
+// So you can proceed to editing immediately
 PlayerLoopBuilder.FromCurrent()
                  .AddToRoot(mySystem)
                  .AddToSubSystem<Update>(mySystem)
@@ -53,10 +53,10 @@ PlayerLoop.SetPlayerLoop();
 ```
 Or call `PlayerLoopBuilder.SetPlayerLoop()` which will set the result `PlayerLoopSystem` as unity's default PlayerLoop without you having to retrieve the result `PlayerLoopSystem` and doing it yourself: 
 ```csharp
-var playerLoop = PlayerLoopBuilder.FromCurrent()
-                                  .AddToSubSystem<Update, MyUpdate>(MyUpdateCallback)
-                                  .AddToSubSystem<FixedUpdate, MyFixedUpdate>()
-                                  .SetPlayerLoop();
+PlayerLoopBuilder.FromCurrent()
+                 .AddToSubSystem<Update, MyUpdate>(MyUpdateCallback)
+                 .AddToSubSystem<FixedUpdate, MyFixedUpdate>()
+                 .SetPlayerLoop();
 ```
 
 ## PlayerLoopSystem extension methods
